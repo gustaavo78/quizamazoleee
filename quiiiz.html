@@ -1,0 +1,3453 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Amazole: Teste Rápido - Solução para Manchas na Pele</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8A2BE2;
+            --primary-light: #9B4DFF;
+            --primary-dark: #7823C2;
+            --secondary: #FF6B6B;
+            --accent: #FFD166;
+            --success: #06D6A0;
+            --dark: #2D3142;
+            --text: #4F5D75;
+            --light-text: #7B8AA0;
+            --light-bg: #F9F9F9;
+            --white: #FFFFFF;
+            --shadow: 0 4px 15px rgba(0,0,0,0.1);
+            --border-radius: 12px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            background-color: var(--light-bg);
+            color: var(--text);
+            line-height: 1.6;
+            font-size: 16px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 550px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Welcome Screen */
+        .welcome-screen {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--white);
+            padding: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .welcome-circles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .welcome-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .welcome-circle:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: -150px;
+            right: -100px;
+        }
+        
+        .welcome-circle:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            bottom: -80px;
+            left: -80px;
+        }
+        
+        .welcome-circle:nth-child(3) {
+            width: 150px;
+            height: 150px;
+            bottom: 100px;
+            right: 50px;
+        }
+        
+        .welcome-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .welcome-logo {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+        
+        .welcome-logo span {
+            color: var(--accent);
+        }
+        
+        .welcome-title {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 15px;
+            line-height: 1.2;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        
+        .welcome-subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-bottom: 25px;
+        }
+        
+        .welcome-image {
+            width: 160px;
+            height: 160px;
+            background-color: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            overflow: hidden;
+        }
+        
+        .welcome-image img {
+            width: 100px;
+            height: auto;
+        }
+        
+        .welcome-features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 25px;
+            gap: 10px;
+        }
+        
+        .welcome-feature {
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 30px;
+            padding: 6px 12px;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .welcome-feature i {
+            margin-right: 6px;
+            color: var(--accent);
+        }
+        
+        .btn-start {
+            background-color: var(--white);
+            color: var(--primary);
+            border: none;
+            border-radius: 30px;
+            padding: 12px 28px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            max-width: 280px;
+            margin: 0 auto;
+        }
+        
+        .btn-start:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn-start:hover:after {
+            left: 100%;
+        }
+        
+        .btn-start:active {
+            transform: translateY(3px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        /* Insecurity Highlight Section */
+        .insecurity-section {
+            margin: 20px 0 25px;
+            width: 100%;
+        }
+        
+        .insecurity-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--accent);
+            letter-spacing: 0.5px;
+        }
+        
+        .insecurity-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        
+        .insecurity-item {
+            background: rgba(255,255,255,0.15);
+            border-radius: 10px;
+            padding: 12px;
+            text-align: left;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        .insecurity-icon {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: var(--secondary);
+        }
+        
+        .insecurity-text {
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 1.3;
+        }
+        
+        /* Quiz Styles */
+        .quiz-container {
+            display: none;
+            padding: 15px 0 30px;
+            min-height: 100vh;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--white);
+            padding: 15px 0;
+            text-align: center;
+            border-radius: 0 0 15px 15px;
+            box-shadow: var(--shadow);
+            position: relative;
+            margin-bottom: 25px;
+        }
+        
+        .logo {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 3px;
+            position: relative;
+        }
+        
+        .tagline {
+            font-size: 12px;
+            opacity: 0.9;
+            position: relative;
+        }
+        
+        .progress-container {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: 12px;
+            margin: -15px auto 15px;
+            max-width: 90%;
+            box-shadow: var(--shadow);
+            position: relative;
+            z-index: 10;
+        }
+        
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 13px;
+        }
+        
+        .progress-bar {
+            height: 6px;
+            background: #E9ECEF;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(to right, var(--primary), var(--primary-light));
+            border-radius: 6px;
+            width: 0;
+            transition: width 0.5s ease;
+        }
+        
+        .card {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: var(--shadow);
+        }
+        
+        .question-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .question-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 26px;
+            height: 26px;
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            border-radius: 50%;
+            margin-right: 8px;
+            flex-shrink: 0;
+            font-size: 13px;
+        }
+        
+        .question-desc {
+            font-size: 13px;
+            color: var(--light-text);
+            margin-bottom: 15px;
+        }
+        
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .option-item {
+            background: var(--white);
+            border: 2px solid #E9ECEF;
+            border-radius: 8px;
+            padding: 12px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+        
+        .option-item:hover {
+            border-color: #DEE2E6;
+            background-color: #F8F9FA;
+        }
+        
+        .option-item:active {
+            transform: translateY(-3px);
+            border-color: var(--primary);
+            box-shadow: 0 4px 8px rgba(138, 43, 226, 0.1);
+        }
+        
+        .option-item.selected {
+            border-color: var(--primary);
+            background-color: rgba(138, 43, 226, 0.05);
+        }
+        
+        .option-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            padding-right: 28px;
+            color: var(--dark);
+        }
+        
+        .option-desc {
+            font-size: 12px;
+            color: var(--light-text);
+            margin-bottom: 8px;
+        }
+        
+        .option-impact {
+            font-size: 11px;
+            color: var(--secondary);
+            font-style: italic;
+            border-top: 1px dashed #E9ECEF;
+            padding-top: 8px;
+        }
+        
+        .option-item.selected:after {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 22px;
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            font-size: 11px;
+        }
+        
+        .button-row {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s ease;
+        }
+        
+        .btn-back {
+            background-color: #E9ECEF;
+            color: var(--light-text);
+            flex: 1;
+        }
+        
+        .btn-back:hover {
+            background-color: #DEE2E6;
+        }
+        
+        .btn-back:active {
+            background-color: #CED4DA;
+        }
+        
+        .btn-next {
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+            color: white;
+            flex: 2;
+            box-shadow: 0 3px 8px rgba(138, 43, 226, 0.2);
+        }
+        
+        .btn-next:hover {
+            box-shadow: 0 4px 10px rgba(138, 43, 226, 0.3);
+        }
+        
+        .btn-next:active {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 12px rgba(138, 43, 226, 0.3);
+        }
+        
+        .btn-next:disabled {
+            background: #CED4DA;
+            color: #6C757D;
+            box-shadow: none;
+            cursor: not-allowed;
+        }
+        
+        .btn i {
+            margin: 0 4px;
+        }
+        
+        /* Results Styles */
+        .results-container {
+            display: none;
+            animation: fadeIn 0.5s ease;
+            padding-bottom: 30px;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .results-header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border-radius: var(--border-radius);
+            padding: 25px 15px;
+            text-align: center;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .results-header:before {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.05);
+            top: -100px;
+            right: -50px;
+        }
+        
+        .results-icon {
+            font-size: 35px;
+            margin-bottom: 12px;
+            color: var(--accent);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .results-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .results-subtitle {
+            font-size: 15px;
+            line-height: 1.4;
+            position: relative;
+            z-index: 1;
+            opacity: 0.9;
+        }
+        
+        .results-highlight {
+            color: var(--accent);
+            font-weight: 700;
+        }
+        
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 15px;
+            padding-left: 10px;
+            position: relative;
+            line-height: 1.3;
+        }
+        
+        .section-title:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 3px;
+            background: var(--primary);
+            border-radius: 3px;
+        }
+        
+        .diagnosis-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--primary);
+            padding: 12px;
+            background-color: rgba(138, 43, 226, 0.1);
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+        
+        .text {
+            font-size: 14px;
+            color: var(--text);
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+        
+        .emotional-question {
+            font-size: 16px;
+            font-weight: 500;
+            font-style: italic;
+            color: var(--secondary);
+            margin: 20px 0;
+            text-align: center;
+            line-height: 1.4;
+        }
+        
+        .problem-list {
+            margin: 20px 0;
+        }
+        
+        .problem-item {
+            display: flex;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #E9ECEF;
+        }
+        
+        .problem-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .problem-icon {
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(135deg, var(--secondary), #E55C5C);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            flex-shrink: 0;
+            font-size: 14px;
+        }
+        
+        .problem-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: var(--dark);
+        }
+        
+        .problem-desc {
+            font-size: 13px;
+            color: var(--text);
+            line-height: 1.4;
+        }
+        
+        .box {
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .warning-box {
+            background-color: rgba(255, 107, 107, 0.1);
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .solution-box {
+            background-color: rgba(6, 214, 160, 0.1);
+            border-left: 4px solid var(--success);
+        }
+        
+        .box-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .warning-box .box-title {
+            color: var(--secondary);
+        }
+        
+        .solution-box .box-title {
+            color: var(--success);
+        }
+        
+        .box-title i {
+            margin-right: 8px;
+        }
+        
+        .box-desc {
+            font-size: 13px;
+            line-height: 1.4;
+            color: var(--text);
+        }
+        
+        .timeline-container {
+            position: relative;
+            margin: 25px 0;
+            padding-left: 30px;
+        }
+        
+        .timeline-container:before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--primary-light), var(--primary-dark));
+            border-radius: 2px;
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 25px;
+        }
+        
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .timeline-item:before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: -20px;
+            width: 12px;
+            height: 12px;
+            background: white;
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            z-index: 1;
+            box-shadow: 0 0 0 2px rgba(138, 43, 226, 0.1);
+        }
+        
+        .timeline-week {
+            display: inline-block;
+            padding: 4px 10px;
+            background: var(--primary);
+            color: white;
+            font-size: 12px;
+            font-weight: 600;
+            border-radius: 15px;
+            margin-bottom: 6px;
+        }
+        
+        .timeline-text {
+            font-size: 13px;
+            color: var(--text);
+            line-height: 1.4;
+        }
+        
+        .whatsapp-button {
+            display: block;
+            width: 100%;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+            text-align: center;
+            padding: 14px;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            font-weight: 700;
+            text-decoration: none;
+            margin: 10px 0;
+            border: none;
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.2);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.02);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        
+        .whatsapp-button:hover {
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+        }
+        
+        .whatsapp-button:active {
+            transform: translateY(-3px);
+        }
+        
+        .whatsapp-icon {
+            margin-right: 8px;
+        }
+        
+        .whatsapp-button:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                rgba(255,255,255,0) 0%, 
+                rgba(255,255,255,0.2) 50%, 
+                rgba(255,255,255,0) 100%);
+            animation: shine 2s infinite;
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        /* Loading Animation */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255,255,255,0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        
+        .loading-screen.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(138, 43, 226, 0.1);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 0.8s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Products Grid Styles */
+        .products-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            margin: 20px 0;
+        }
+        
+        .product-card {
+            border: 2px solid #E9ECEF;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+        
+        .product-card.selected {
+            border-color: var(--primary);
+            box-shadow: 0 5px 12px rgba(138, 43, 226, 0.15);
+        }
+        
+        .product-tag {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: var(--secondary);
+            color: white;
+            font-size: 10px;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 0 0 0 8px;
+            text-transform: uppercase;
+            z-index: 1;
+        }
+        
+        .product-header {
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
+            color: white;
+            padding: 15px 12px;
+            text-align: center;
+        }
+        
+        .product-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        
+        .product-quantity {
+            font-size: 28px;
+            font-weight: 800;
+            margin: 8px 0 4px;
+        }
+        
+        .product-old-price {
+            text-decoration: line-through;
+            font-size: 13px;
+            opacity: 0.8;
+            margin-bottom: 2px;
+        }
+        
+        .product-price {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        
+        .product-save {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 3px 8px;
+            border-radius: 15px;
+            font-size: 11px;
+            display: inline-block;
+        }
+        
+        .product-body {
+            padding: 15px 12px;
+            text-align: center;
+        }
+        
+        .product-desc {
+            font-size: 13px;
+            color: var(--text);
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        
+        .product-benefits {
+            margin-bottom: 12px;
+            text-align: left;
+        }
+        
+        .product-benefit {
+            display: flex;
+            align-items: flex-start;
+            font-size: 12px;
+            margin-bottom: 6px;
+            color: var(--dark);
+            line-height: 1.3;
+        }
+        
+        .product-benefit i {
+            color: var(--success);
+            margin-right: 6px;
+            margin-top: 2px;
+            font-size: 11px;
+            flex-shrink: 0;
+        }
+        
+        .product-badge {
+            background-color: rgba(138, 43, 226, 0.1);
+            color: var(--primary);
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 15px;
+            display: inline-block;
+            margin-top: 4px;
+        }
+        
+        /* Special styles for the exclusive offer */
+        .product-card.exclusive .product-header {
+            background: linear-gradient(135deg, var(--secondary), #E55C5C);
+        }
+        
+        .product-card.exclusive .product-tag {
+            background: var(--accent);
+            color: var(--dark);
+        }
+        
+        .special-offer {
+            background: linear-gradient(135deg, var(--secondary), #E55C5C);
+            color: white;
+            border-radius: 10px;
+            padding: 12px;
+            text-align: center;
+            margin: 15px 0;
+            font-weight: 700;
+            font-size: 14px;
+            box-shadow: 0 4px 10px rgba(255, 107, 107, 0.2);
+            position: relative;
+            overflow: hidden;
+            border: 2px dashed var(--accent);
+        }
+        
+        .special-offer:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, 
+                rgba(255,255,255,0) 0%, 
+                rgba(255,255,255,0.1) 50%, 
+                rgba(255,255,255,0) 100%);
+            animation: shine 2s infinite;
+        }
+        
+        .guarantee-box {
+            text-align: center;
+            border: 2px dashed var(--accent);
+            border-radius: 10px;
+            padding: 15px 12px;
+            margin: 20px 0;
+            background: white;
+        }
+        
+        .guarantee-icon {
+            font-size: 25px;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+        
+        .guarantee-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 6px;
+        }
+        
+        .guarantee-desc {
+            font-size: 13px;
+            color: var(--text);
+            line-height: 1.4;
+        }
+        
+        /* Notification Popup */
+        .notification-popup {
+            position: fixed;
+            bottom: 15px;
+            left: 15px;
+            background: white;
+            border-radius: 10px;
+            padding: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+            width: 250px;
+            max-width: 85%;
+            z-index: 9999;
+            display: none;
+            animation: slideUp 0.4s forwards;
+            transform-origin: bottom;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .notification-popup.slide-out {
+            animation: slideDown 0.4s forwards;
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+        }
+        
+        .notification-header {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+        
+        .notification-close {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #E9ECEF;
+            color: var(--light-text);
+            border-radius: 50%;
+            font-size: 9px;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .notification-icon {
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--success);
+            color: white;
+            border-radius: 50%;
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+        
+        .notification-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 3px;
+            padding-right: 18px;
+        }
+        
+        .notification-message {
+            font-size: 12px;
+            color: var(--text);
+            line-height: 1.3;
+            margin-bottom: 4px;
+        }
+        
+        .notification-time {
+            font-size: 10px;
+            color: var(--light-text);
+            display: flex;
+            align-items: center;
+        }
+        
+        .notification-time i {
+            margin-right: 3px;
+            font-size: 9px;
+        }
+        
+        /* Pulse Dot */
+        .pulse-dot {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background: var(--success);
+            border-radius: 50%;
+            margin-right: 4px;
+            animation: pulse 1.5s infinite;
+        }
+        
+        /* Discount Popup */
+        .discount-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        
+        .discount-popup.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .discount-content {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            width: 300px;
+            max-width: 90%;
+            text-align: center;
+            position: relative;
+            animation: popup 0.4s forwards;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        @keyframes popup {
+            0% {
+                transform: scale(0.7);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        .discount-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 22px;
+            height: 22px;
+            background: #E9ECEF;
+            border: none;
+            border-radius: 50%;
+            color: var(--light-text);
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        
+        .discount-image {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 12px;
+            background: var(--primary-light);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+        }
+        
+        .discount-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 12px;
+        }
+        
+        .coupon-container {
+            background: rgba(138, 43, 226, 0.1);
+            border: 2px dashed var(--primary);
+            border-radius: 6px;
+            padding: 8px;
+            margin: 12px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .coupon-code {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 2px;
+        }
+        
+        .copy-icon {
+            position: absolute;
+            right: 8px;
+            background: var(--primary);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 11px;
+        }
+        
+        .discount-desc {
+            font-size: 13px;
+            color: var(--text);
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        
+        .discount-benefit {
+            display: flex;
+            align-items: flex-start;
+            font-size: 12px;
+            text-align: left;
+            margin-bottom: 6px;
+        }
+        
+        .discount-benefit i {
+            color: var(--success);
+            margin-right: 6px;
+            margin-top: 2px;
+            font-size: 11px;
+            flex-shrink: 0;
+        }
+        
+        .discount-btn {
+            display: block;
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            margin-top: 15px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(138, 43, 226, 0.2);
+            animation: pulse 1.5s infinite;
+        }
+        
+        .discount-btn:active {
+            transform: translateY(-3px);
+        }
+        
+        .discount-timer {
+            font-size: 11px;
+            color: var(--secondary);
+            margin-top: 12px;
+            font-weight: 600;
+        }
+        
+        .countdown {
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        
+        .discount-other-options {
+            display: block;
+            width: 100%;
+            background: transparent;
+            color: var(--light-text);
+            border: 1px solid #E9ECEF;
+            border-radius: 8px;
+            padding: 8px;
+            font-size: 13px;
+            margin-top: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .discount-other-options:hover {
+            background: #F8F9FA;
+            color: var(--text);
+        }
+        
+        /* Copied message */
+        .copied-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            z-index: 10000;
+        }
+        
+        .copied-message.show {
+            opacity: 1;
+        }
+        
+        /* Welcome Discount Banner */
+        .welcome-discount-banner {
+            background: linear-gradient(135deg, var(--accent), #FFB347);
+            color: var(--dark);
+            padding: 12px;
+            text-align: center;
+            margin-top: 15px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 14px;
+            position: relative;
+            overflow: hidden;
+            animation: pulse-bg 2s infinite;
+        }
+        
+        @keyframes pulse-bg {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        
+        .welcome-discount-banner span {
+            color: var(--primary-dark);
+            font-weight: 700;
+        }
+        
+        /* Attention-grabbing features */
+        .attention-banner {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(138, 43, 226, 0.2);
+        }
+        
+        .attention-banner:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, 
+                rgba(255,255,255,0) 0%, 
+                rgba(255,255,255,0.1) 50%, 
+                rgba(255,255,255,0) 100%);
+            animation: shine 3s infinite;
+        }
+        
+        .attention-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 4px;
+            position: relative;
+        }
+        
+        .attention-desc {
+            font-size: 13px;
+            color: rgba(255,255,255,0.9);
+            line-height: 1.4;
+            position: relative;
+        }
+        
+        .product-highlight {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--accent);
+            text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            margin: 5px 0;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Urgency Banner */
+        .urgency-banner {
+            background-color: #FF6B6B;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            margin: 12px 0;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 13px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .urgency-banner:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                rgba(255,255,255,0) 0%, 
+                rgba(255,255,255,0.2) 50%, 
+                rgba(255,255,255,0) 100%);
+            animation: shine 1.5s infinite;
+        }
+        
+        /* Testimonial Styles */
+        .testimonials-section {
+            margin: 20px 0;
+        }
+        
+        .testimonial-title {
+            text-align: center;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 15px;
+            position: relative;
+        }
+        
+        .testimonial-title:after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 2px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+        
+        .testimonial-card {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border: 1px solid #E9ECEF;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .testimonial-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 12px;
+            background: var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        
+        .testimonial-info {
+            flex: 1;
+        }
+        
+        .testimonial-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 1px;
+        }
+        
+        .testimonial-location {
+            font-size: 11px;
+            color: var(--light-text);
+        }
+        
+        .testimonial-rating {
+            display: flex;
+            margin-bottom: 4px;
+        }
+        
+        .testimonial-star {
+            color: #FFD700;
+            margin-right: 1px;
+            font-size: 12px;
+        }
+        
+        .testimonial-text {
+            font-size: 13px;
+            line-height: 1.4;
+            color: var(--text);
+            font-style: italic;
+        }
+        
+        .testimonial-highlight {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .testimonial-verified {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 10px;
+            color: var(--success);
+            display: flex;
+            align-items: center;
+        }
+        
+        .testimonial-verified i {
+            margin-right: 3px;
+        }
+        
+        .testimonial-date {
+            margin-top: 8px;
+            font-size: 11px;
+            color: var(--light-text);
+            text-align: right;
+        }
+        
+        /* Success Counter */
+        .success-counter {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(138, 43, 226, 0.2);
+        }
+        
+        .success-counter:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%);
+        }
+        
+        .success-number {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 3px;
+            position: relative;
+            color: var(--accent);
+            text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .success-text {
+            font-size: 14px;
+            font-weight: 600;
+            position: relative;
+            line-height: 1.3;
+        }
+        
+        .success-detail {
+            font-size: 13px;
+            opacity: 0.9;
+            margin-top: 4px;
+            position: relative;
+        }
+        
+        /* Rating Section */
+        .rating-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .rating-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 12px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            min-width: 85px;
+            flex: 1;
+            border: 1px solid #E9ECEF;
+        }
+        
+        .rating-number {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--dark);
+            line-height: 1.2;
+        }
+        
+        .rating-stars {
+            display: flex;
+            margin: 4px 0;
+        }
+        
+        .rating-stars i {
+            color: #FFD700;
+            font-size: 12px;
+            margin: 0 1px;
+        }
+        
+        .rating-text {
+            font-size: 11px;
+            color: var(--light-text);
+            line-height: 1.2;
+        }
+        
+        /* Quiz Reviews Section */
+        .quiz-reviews {
+            margin: 15px 0;
+            padding: 12px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border: 1px solid #E9ECEF;
+        }
+        
+        .quiz-reviews-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 12px;
+            text-align: center;
+        }
+        
+        .quiz-review-item {
+            border-top: 1px solid #E9ECEF;
+            padding: 12px 0;
+            display: flex;
+        }
+        
+        .quiz-review-item:first-child {
+            border-top: none;
+            padding-top: 0;
+        }
+        
+        .quiz-review-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--primary-light);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-right: 10px;
+            flex-shrink: 0;
+            font-size: 14px;
+        }
+        
+        .quiz-review-content {
+            flex: 1;
+        }
+        
+        .quiz-review-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 2px;
+        }
+        
+        .quiz-review-text {
+            font-size: 12px;
+            color: var(--text);
+            line-height: 1.3;
+        }
+        
+        .quiz-review-date {
+            font-size: 10px;
+            color: var(--light-text);
+            margin-top: 2px;
+        }
+        
+        /* Recent Purchase Popup */
+        .recent-purchase-popup {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            width: 280px;
+            max-width: 85%;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 15px;
+            z-index: 9998;
+            display: none;
+            animation: slideInRight 0.5s forwards;
+        }
+        
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        .recent-purchase-popup.slide-out {
+            animation: slideOutRight 0.5s forwards;
+        }
+        
+        @keyframes slideOutRight {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+        
+        .recent-purchase-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .recent-purchase-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary-light);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-weight: 700;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+        
+        .recent-purchase-title {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--dark);
+            margin-bottom: 2px;
+        }
+        
+        .recent-purchase-location {
+            font-size: 11px;
+            color: var(--light-text);
+        }
+        
+        .recent-purchase-message {
+            font-size: 13px;
+            color: var(--text);
+            line-height: 1.4;
+            margin-bottom: 10px;
+            position: relative;
+        }
+        
+        .recent-purchase-message::before {
+            content: '"';
+            font-size: 24px;
+            color: var(--primary-light);
+            opacity: 0.3;
+            position: absolute;
+            left: -5px;
+            top: -5px;
+        }
+        
+        .recent-purchase-message::after {
+            content: '"';
+            font-size: 24px;
+            color: var(--primary-light);
+            opacity: 0.3;
+            position: absolute;
+            right: -5px;
+            bottom: -15px;
+        }
+        
+        .recent-purchase-action {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .recent-purchase-time {
+            font-size: 10px;
+            color: var(--light-text);
+        }
+        
+        .recent-purchase-badge {
+            background-color: var(--success);
+            color: white;
+            font-size: 10px;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .recent-purchase-badge i {
+            margin-right: 4px;
+        }
+        
+        .recent-purchase-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 18px;
+            height: 18px;
+            background: #E9ECEF;
+            border: none;
+            border-radius: 50%;
+            color: var(--light-text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- Recent Purchase Popup -->
+    <div class="recent-purchase-popup" id="recent-purchase-popup">
+        <button class="recent-purchase-close" id="recent-purchase-close">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="recent-purchase-header">
+            <div class="recent-purchase-avatar" id="recent-purchase-avatar">M</div>
+            <div>
+                <div class="recent-purchase-title" id="recent-purchase-name">Maria acabou de comprar</div>
+                <div class="recent-purchase-location" id="recent-purchase-location">São Paulo, SP</div>
+            </div>
+        </div>
+        <div class="recent-purchase-message" id="recent-purchase-message">
+            Acabei de fazer o teste e aproveitei o desconto de 35% para comprar o kit de 3 frascos. Incrível como o diagnóstico foi preciso!
+        </div>
+        <div class="recent-purchase-action">
+            <div class="recent-purchase-time" id="recent-purchase-time">Agora mesmo</div>
+            <div class="recent-purchase-badge">
+                <i class="fas fa-check-circle"></i> Verificado
+            </div>
+        </div>
+    </div>
+
+    <!-- Welcome Screen -->
+    <div class="welcome-screen" id="welcome-screen">
+        <div class="welcome-circles">
+            <div class="welcome-circle"></div>
+            <div class="welcome-circle"></div>
+            <div class="welcome-circle"></div>
+        </div>
+        
+        <div class="welcome-content">
+            <div class="welcome-logo">Amazole<span>+</span></div>
+            <h1 class="welcome-title">Livre-se das Manchas que Destroem sua Autoestima</h1>
+            <p class="welcome-subtitle">Teste de 1 minuto: descubra como eliminar as manchas que te fazem sentir vergonha</p>
+            
+            <div class="product-highlight">AMAZOLE: CLAREADOR REVOLUCIONÁRIO</div>
+            
+            <div class="success-counter">
+                <div class="success-number">+5.000</div>
+                <div class="success-text">MULHERES TRANSFORMADAS</div>
+                <div class="success-detail">Resultados visíveis a partir de 2 semanas</div>
+            </div>
+            
+            <div class="insecurity-section">
+                <div class="insecurity-title">IDENTIFICA-SE COM:</div>
+                <div class="insecurity-grid">
+                    <div class="insecurity-item">
+                        <div class="insecurity-icon"><i class="fas fa-camera-slash"></i></div>
+                        <div class="insecurity-text">Evita fotos por causa das manchas?</div>
+                    </div>
+                    <div class="insecurity-item">
+                        <div class="insecurity-icon"><i class="fas fa-tshirt"></i></div>
+                        <div class="insecurity-text">Vergonha de mostrar braços ou pernas?</div>
+                    </div>
+                    <div class="insecurity-item">
+                        <div class="insecurity-icon"><i class="fas fa-mask"></i></div>
+                        <div class="insecurity-text">Excesso de maquiagem para esconder?</div>
+                    </div>
+                    <div class="insecurity-item">
+                        <div class="insecurity-icon"><i class="fas fa-heart-broken"></i></div>
+                        <div class="insecurity-text">Afeta sua vida íntima?</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="welcome-features">
+                <div class="welcome-feature">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Grátis</span>
+                </div>
+                <div class="welcome-feature">
+                    <i class="fas fa-clock"></i>
+                    <span>1 minuto</span>
+                </div>
+                <div class="welcome-feature">
+                    <i class="fas fa-user-md"></i>
+                    <span>Especialistas</span>
+                </div>
+            </div>
+            
+            <div class="welcome-discount-banner">
+                🔥 OFERTA: <span>35% DE DESCONTO</span> ao finalizar o teste! 🔥
+            </div>
+            
+            <button class="btn-start" id="btn-start">
+                INICIAR AVALIAÇÃO RÁPIDA
+            </button>
+        </div>
+    </div>
+
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loading-screen">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Notification Popup -->
+    <div class="notification-popup" id="notification-popup">
+        <button class="notification-close" id="notification-close">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="notification-header">
+            <div class="notification-icon">
+                <i class="fas fa-check"></i>
+            </div>
+            <div>
+                <div class="notification-title" id="notification-title">Compra Recente</div>
+                <div class="notification-message" id="notification-message">Alguém acabou de adquirir o Kit Completo</div>
+            </div>
+        </div>
+        <div class="notification-time">
+            <div class="pulse-dot"></div>
+            <span id="notification-time">Agora mesmo</span>
+        </div>
+    </div>
+
+    <!-- Discount Popup -->
+    <div class="discount-popup" id="discount-popup">
+        <div class="discount-content">
+            <button class="discount-close" id="discount-close">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="discount-image">
+                <i class="fas fa-gift"></i>
+            </div>
+            <div class="discount-title">CUPOM EXCLUSIVO!</div>
+            <p class="discount-desc">Parabéns! Use este cupom para obter <strong>35% de desconto</strong> no seu tratamento:</p>
+            
+            <div class="coupon-container">
+                <div class="coupon-code">AMAZ35</div>
+                <div class="copy-icon" id="copy-coupon">
+                    <i class="fas fa-copy"></i>
+                </div>
+            </div>
+            
+            <div class="discount-benefit">
+                <i class="fas fa-check-circle"></i>
+                <span>Economize até R$ 133,00 no tratamento</span>
+            </div>
+            <div class="discount-benefit">
+                <i class="fas fa-check-circle"></i>
+                <span>Frete GRÁTIS para todo Brasil</span>
+            </div>
+            <div class="discount-benefit">
+                <i class="fas fa-check-circle"></i>
+                <span>Pague apenas na entrega!</span>
+            </div>
+            <button class="discount-btn" id="discount-btn">
+                GARANTIR MEU AMAZOLE
+            </button>
+            <button class="discount-other-options" id="discount-other-options">
+                VER OUTRAS OFERTAS
+            </button>
+            <div class="discount-timer">
+                Cupom expira em: <span class="countdown" id="discount-countdown">10:00</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Copied Message -->
+    <div class="copied-message" id="copied-message">
+        Cupom copiado!
+    </div>
+
+    <!-- Quiz Container -->
+    <div class="quiz-container" id="quiz-container">
+        <div class="header">
+            <div class="container">
+                <div class="logo">Amazole+</div>
+                <div class="tagline">Solução para Manchas na Pele</div>
+            </div>
+        </div>
+        
+        <div class="container">
+            <!-- Progress Bar -->
+            <div class="progress-container">
+                <div class="progress-info">
+                    <div>Pergunta <span id="current-step">1</span> de <span id="total-steps">5</span></div>
+                    <div id="progress-percent">20%</div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+            </div>
+            
+            <!-- Question Card -->
+            <div id="question-card" class="card">
+                <!-- Question content will be inserted here by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Results Container -->
+    <div class="results-container" id="results-container">
+        <div class="container">
+            <div class="results-header">
+                <div class="results-icon"><i class="fas fa-check-circle"></i></div>
+                <div class="results-title">Análise Concluída!</div>
+                <p class="results-subtitle">Encontramos <span class="results-highlight">a solução</span> para suas manchas com Amazole+</p>
+            </div>
+            
+            <div class="card">
+                <h3 class="section-title">Seu Diagnóstico</h3>
+                <div class="diagnosis-title" id="diagnosis-title">HIPERPIGMENTAÇÃO SEVERA</div>
+                
+                <p class="text">Com base em suas respostas, identificamos a necessidade de um tratamento específico com Amazole+ para suas manchas.</p>
+                
+                <div class="problem-list" id="problem-list">
+                    <!-- Problems will be inserted here by JavaScript -->
+                </div>
+                
+                <div class="warning-box box">
+                    <div class="box-title"><i class="fas fa-exclamation-triangle"></i> ATENÇÃO!</div>
+                    <div class="box-desc">
+                        <p><strong>Métodos caseiros pioram suas manchas!</strong> Limão, bicarbonato e vinagre causam irritação e hiperpigmentação.</p>
+                    </div>
+                </div>
+                
+                <div class="solution-box box">
+                    <div class="box-title"><i class="fas fa-lightbulb"></i> A BOA NOTÍCIA</div>
+                    <div class="box-desc">
+                        <p>O Amazole+ foi formulado para penetrar nas camadas profundas da pele e eliminar o excesso de melanina com segurança.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3 class="section-title">Tratamento Recomendado</h3>
+                
+                <div class="urgency-banner">
+                    ⚠️ RESTAM APENAS 7 KITS COM DESCONTO! ⚠️
+                </div>
+                
+                <div class="special-offer">
+                    🔥 OFERTA: Kit 3 Frascos com 35% OFF + Frete GRÁTIS! 🔥
+                </div>
+                
+                <div class="products-grid">
+                    <!-- Kit 2 Frascos -->
+                    <div class="product-card" data-qty="2" id="product-2">
+                        <div class="product-header">
+                            <div class="product-title">Kit Inicial</div>
+                            <div class="product-quantity">2 Frascos</div>
+                            <div class="product-old-price">De R$ 197,00</div>
+                            <div class="product-price">Por R$ 167,00</div>
+                            <div class="product-save">Economize R$ 30,00</div>
+                        </div>
+                        <div class="product-body">
+                            <div class="product-desc">Para manchas recentes e leves</div>
+                            <div class="product-benefits">
+                                <div class="product-benefit"><i class="fas fa-check-circle"></i> Ideal para manchas com menos de 6 meses</div>
+                                <div class="product-benefit"><i class="fas fa-check-circle"></i> 60 dias de tratamento</div>
+                            </div>
+                            <div class="product-badge">Kit Básico</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Kit 3 Frascos -->
+                    <div class="product-card selected" data-qty="3" id="product-3">
+                        <div class="product-tag">MAIS VENDIDO</div>
+                        <div class="product-header">
+                            <div class="product-title">Kit Completo</div>
+                            <div class="product-quantity">3 Frascos</div>
+                            <div class="product-old-price">De R$ 297,00</div>
+                            <div class="product-price">Por R$ 197,00</div>
+                            <div class="product-save">Economize R$ 100,00</div>
+                        </div>
+                        <div class="product-body">
+                            <div class="product-desc">Tratamento recomendado para seu caso</div>
+                            <div class="product-benefits">
+                                <div class="product-benefit"><i class="fas fa-check-circle"></i> Ideal para manchas persistentes</div>
+                                <div class="product-benefit"><i class="fas fa-check-circle"></i> 90 dias de tratamento</div>
+                            </div>
+                            <div class="product-badge">MAIS RECOMENDADO</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Kit 4 Frascos -->
+                    <div class="product-card exclusive" data-qty="4" id="product-4">
+                        <div class="product-tag">OFERTA EXCLUSIVA</div>
+                        <div class="product-header">
+                            <div class="product-title">Kit Intensivo</div>
+                            <div class="product-quantity">4 Frascos</div>
+                            <div class="product-old-price">De R$ 357,00</div>
+                            <div class="product-price">Por R$ 247,00</div>
+                            <div class="product-save">Economize R$ 110,00</div>
+                        </div>
+                        <div class="product-body">
+                            <div class="product-desc">Tratamento intensivo para casos severos</div>
+                            <div class="product-benefits">
+                                <div class="product-benefit"><i class="fas fa-check-circle"></i> Para manchas profundas e resistentes</div>
+                                <div class="product-benefit"><i class="fas fa-check-circle"></i> 120 dias de tratamento completo</div>
+                            </div>
+                            <div class="product-badge">MAIOR ECONOMIA</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonials-section">
+                    <div class="testimonial-title">Experiências com o Quiz</div>
+                    
+                    <div class="testimonial-grid">
+                        <div class="testimonial-card">
+                            <div class="testimonial-verified">
+                                <i class="fas fa-check-circle"></i> Verificado
+                            </div>
+                            <div class="testimonial-header">
+                                <div class="testimonial-avatar">F</div>
+                                <div class="testimonial-info">
+                                    <div class="testimonial-name">Fernanda Silva</div>
+                                    <div class="testimonial-location">São Paulo, SP</div>
+                                    <div class="testimonial-rating">
+                                        <i class="fas fa-star testimonial-star"></i>
+                                        <i class="fas fa-star testimonial-star"></i>
+                                        <i class="fas fa-star testimonial-star"></i>
+                                        <i class="fas fa-star testimonial-star"></i>
+                                        <i class="fas fa-star testimonial-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="testimonial-text">
+                                "Quiz incrível! O desconto de 35% <span class="testimonial-highlight">salvou meu orçamento</span>. Finalmente posso tratar minhas manchas sem gastar uma fortuna. Amazole+ está clareando minhas manchas em apenas 3 semanas!"
+                            </div>
+                            <div class="testimonial-date">Hoje</div>
+                        </div>
+                        
+                        <div class="testimonial-card">
+                            <div class="testimonial-verified">
+                                <i class="fas fa-check-circle"></i> Verificado
+                            </div>
+                            <div class="testimonial-header">
+                                <div class="testimonial-avatar">L</div>
+                                <div class="testimonial-info">
+                                    <div class="testimonial-name">Luana Mendes</div>
+                                    <div class="testimonial-location">Rio de Janeiro, RJ</div>
+                                    <div class="testimonial-rating">
+                                        <i class="fas fa-star testimonial-star"></i>
+                                        <i class="fas fa-star testimonial-star"></i>
+                                        <i class="fas fa-star testimonial-star"></i>
+                                        <i class="fas fa-star testimonial-star"></i>
+                                        <i class="fas fa-star testimonial-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="testimonial-text">
+                                "Depois de fazer o quiz, recebi o <span class="testimonial-highlight">cupom exclusivo</span> e comprei o kit de 3 frascos. Sem esse desconto, não conseguiria comprar. Hoje minhas manchas estão 70% mais claras!"
+                            </div>
+                            <div class="testimonial-date">3 dias atrás</div>
+                        </div>
+                        
+                        <div class="testimonial-card">
+                            <div class="testimonial-verified">
+                                <i class="fas fa-check-circle"></i> Verificado
+                            </div>
+                            <div class="testimonial-header">
+                                <div class="testimonial-avatar">P</div>
+                                <div class="testimonial-info">
+                                    <div class="testimonial-name">Patrícia Andrade</div>
+                                    <div class="testimonial-location">Curitiba, PR</div>
+                                    <div class="testimonial-rating">
+                                        <i class="fas fa-star testimonial-star"></i>
+                                        <i class="fas fa-star testimonial-star"></i>
+                                        <i class="fas fa-star testimonial-star"></i>
+                                        <i class="fas fa-star testimonial-star"></i>
+                                        <i class="fas fa-star testimonial-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="testimonial-text">
+                                "Já tinha tentado <span class="testimonial-highlight">todos os tratamentos possíveis</span>, dos mais baratos aos mais caros. Amazole+ foi o ÚNICO que realmente funcionou! Obrigada pelo desconto, fez toda diferença!"
+                            </div>
+                            <div class="testimonial-date">1 semana atrás</div>
+                        </div>
+                        
+                        <div class="testimonial-card">
+                            <div class="testimonial-verified">
+                                <i class="fas fa-check-circle"></i> Verificado
+                            </div>
+                            <div class="testimonial-header">
+                                <div class="testimonial-avatar">C</div>
+                                <div class="testimonial-info">
+                                    <div class="testimonial-name">Carolina Martins</div>
+                                    <div class="testimonial-location">Belo Horizonte, MG</div>
+                                    <div class="testimonial-rating">
+                                        <i class="fas fa-star testimonial-star"></i>
+                                        <i class="fas fa-star testimonial-star"></i>
+                                        <i class="fas fa-star testimonial-star"></i>
+                                        <i class="fas fa-star testimonial-star"></i>
+                                        <i class="fas fa-star testimonial-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="testimonial-text">
+                                "Estava <span class="testimonial-highlight">esperando meses</span> por uma promoção pois não tinha condições de pagar o preço normal. Com o desconto do quiz finalmente consegui! Resultados incríveis no 1º mês!"
+                            </div>
+                            <div class="testimonial-date">5 dias atrás</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="guarantee-box">
+                    <div class="guarantee-icon"><i class="fas fa-shield-alt"></i></div>
+                    <div class="guarantee-title">Garantia de 30 dias ou seu dinheiro de volta</div>
+                    <div class="guarantee-desc">Se não ver resultados em 30 dias, devolvemos 100% do valor.</div>
+                </div>
+                
+                <button class="whatsapp-button" id="whatsapp-button-select">
+                    <i class="fab fa-whatsapp whatsapp-icon"></i> GARANTIR MEU AMAZOLE AGORA
+                </button>
+                
+                <p class="text" style="text-align: center; font-size: 12px; color: var(--light-text); margin-top: 5px;">
+                    Pague na entrega! Frete GRÁTIS + Satisfação garantida.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Quiz Questions
+        const questions = [
+            {
+                id: 1,
+                title: "Qual área tem manchas que mais te incomodam?",
+                description: "Diferentes áreas precisam de tratamentos específicos.",
+                options: [
+                    {
+                        id: "face",
+                        title: "Rosto 😔",
+                        description: "Melasma, manchas de sol",
+                        impact: "Afeta sua confiança e autoestima diariamente"
+                    },
+                    {
+                        id: "intimate",
+                        title: "Áreas Íntimas 😳",
+                        description: "Virilha, axilas, região íntima",
+                        impact: "Causa constrangimento em momentos íntimos"
+                    },
+                    {
+                        id: "limbs",
+                        title: "Braços e Pernas 🙈",
+                        description: "Manchas nos membros",
+                        impact: "Te faz evitar roupas curtas e situações sociais"
+                    },
+                    {
+                        id: "multiple",
+                        title: "Várias Áreas 😭",
+                        description: "Manchas em diferentes partes",
+                        impact: "Gera ansiedade constante sobre sua aparência"
+                    }
+                ]
+            },
+            {
+                id: 2,
+                title: "Há quanto tempo você tem essas manchas?",
+                description: "O tempo influencia na resistência das manchas.",
+                options: [
+                    {
+                        id: "recent",
+                        title: "Menos de 6 meses ⏱️",
+                        description: "Manchas recentes",
+                        impact: "Ainda se lembra como era sua pele antes"
+                    },
+                    {
+                        id: "medium",
+                        title: "6 meses a 2 anos 📅",
+                        description: "Manchas já estabelecidas",
+                        impact: "Já afeta sua autoestima diariamente"
+                    },
+                    {
+                        id: "long",
+                        title: "Mais de 2 anos ⏳",
+                        description: "Manchas antigas e persistentes",
+                        impact: "Já perdeu a esperança de resolver o problema"
+                    },
+                    {
+                        id: "lifetime",
+                        title: "Desde sempre 📆",
+                        description: "Manchas de longa duração",
+                        impact: "Fazem parte da sua identidade, mas te incomodam"
+                    }
+                ]
+            },
+            {
+                id: 3,
+                title: "Qual o impacto emocional das manchas?",
+                description: "Entender o impacto ajuda a identificar o tratamento ideal.",
+                options: [
+                    {
+                        id: "mild",
+                        title: "Leve incômodo 😕",
+                        description: "Percebo, mas não afeta muito",
+                        impact: "Seria mais confiante sem elas"
+                    },
+                    {
+                        id: "moderate",
+                        title: "Desconforto moderado 😞",
+                        description: "Preciso esconder com maquiagem",
+                        impact: "Gasta tempo e dinheiro tentando disfarçar"
+                    },
+                    {
+                        id: "severe",
+                        title: "Impacto significativo 😢",
+                        description: "Evito situações sociais",
+                        impact: "Está perdendo experiências por vergonha"
+                    },
+                    {
+                        id: "extreme",
+                        title: "Impacto extremo 😭",
+                        description: "Sinto vergonha profunda",
+                        impact: "Afeta sua saúde mental e relacionamentos"
+                    }
+                ]
+            },
+            {
+                id: 4,
+                title: "Quais tratamentos já tentou?",
+                description: "Conhecer experiências anteriores ajuda a personalizar o tratamento.",
+                options: [
+                    {
+                        id: "none",
+                        title: "Nenhum específico 🤷‍♀️",
+                        description: "Apenas produtos comuns",
+                        impact: "Está perdendo tempo com produtos ineficazes"
+                    },
+                    {
+                        id: "homemade",
+                        title: "Métodos caseiros 🍋",
+                        description: "Limão, bicarbonato, etc.",
+                        impact: "Provavelmente piorou as manchas"
+                    },
+                    {
+                        id: "otc",
+                        title: "Produtos de farmácia 💊",
+                        description: "Cremes clareadores comuns",
+                        impact: "Gastou dinheiro em produtos fracos"
+                    },
+                    {
+                        id: "professional",
+                        title: "Tratamentos profissionais 💉",
+                        description: "Procedimentos em clínica",
+                        impact: "Investiu muito sem obter resultados"
+                    }
+                ]
+            },
+            {
+                id: 5,
+                title: "Qual resultado deseja alcançar?",
+                description: "Seu objetivo nos ajuda a recomendar o tratamento ideal.",
+                options: [
+                    {
+                        id: "reduce",
+                        title: "Redução visível ✨",
+                        description: "Melhora significativa",
+                        impact: "Recuperar confiança perdida"
+                    },
+                    {
+                        id: "eliminate",
+                        title: "Eliminação completa ⭐",
+                        description: "Desaparecimento total",
+                        impact: "Ter pele uniforme e sem imperfeições"
+                    },
+                    {
+                        id: "prevent",
+                        title: "Prevenir novas manchas 🛡️",
+                        description: "Evitar que outras apareçam",
+                        impact: "Medo que o problema piore"
+                    },
+                    {
+                        id: "confidence",
+                        title: "Recuperar confiança 🥰",
+                        description: "Sentir-se bem com sua pele",
+                        impact: "Cansada de limitações na sua vida"
+                    }
+                ]
+            }
+        ];
+
+        // Diagnosis mapping based on responses
+        const diagnoses = {
+            "face": {
+                title: "MELASMA FACIAL DE MÉDIA A ALTA INTENSIDADE",
+                problems: [
+                    {
+                        title: "Vergonha sem maquiagem 😔",
+                        description: "A sensação de vulnerabilidade sem maquiagem limita sua liberdade. Você merece sentir-se bonita naturalmente."
+                    },
+                    {
+                        title: "Medo de julgamentos 😞",
+                        description: "O pensamento constante que todos estão notando suas manchas gera ansiedade social desnecessária."
+                    },
+                    {
+                        title: "Evita fotos e luz natural 📷",
+                        description: "Você perde momentos preciosos por evitar fotos sem filtro e ambientes bem iluminados."
+                    }
+                ]
+            },
+            "intimate": {
+                title: "HIPERPIGMENTAÇÃO EM ÁREAS SENSÍVEIS",
+                problems: [
+                    {
+                        title: "Constrangimento íntimo 😳",
+                        description: "A tensão durante momentos íntimos prejudica sua confiança e prazer, afetando sua vida sexual."
+                    },
+                    {
+                        title: "Limitação com roupas 👙",
+                        description: "A frustração de não poder usar roupas que adora, como biquínis ou lingeries, limita sua expressão."
+                    },
+                    {
+                        title: "Sensação de falta de higiene 🚿",
+                        description: "Você sente que outros podem confundir suas manchas com falta de higiene, gerando insegurança."
+                    }
+                ]
+            },
+            "limbs": {
+                title: "HIPERPIGMENTAÇÃO EM MEMBROS COM RESSECAMENTO",
+                problems: [
+                    {
+                        title: "Esconde braços e pernas 👚",
+                        description: "Usar roupas longas mesmo no calor causa desconforto físico e emocional desnecessário."
+                    },
+                    {
+                        title: "Evita atividades sociais 🏖️",
+                        description: "Praia, piscina e academia se tornam situações de estresse em vez de prazer."
+                    },
+                    {
+                        title: "Sensação de imperfeição 💔",
+                        description: "O sentimento constante de ter um 'defeito' diminui sua autoestima e autoconfiança."
+                    }
+                ]
+            },
+            "multiple": {
+                title: "HIPERPIGMENTAÇÃO MULTIFOCAL RESISTENTE",
+                problems: [
+                    {
+                        title: "Preocupação constante 😟",
+                        description: "O estresse de monitorar suas manchas em diferentes áreas afeta sua saúde mental diariamente."
+                    },
+                    {
+                        title: "Rotina de camuflagem 🎭",
+                        description: "Horas preciosas de sua vida gastas tentando esconder manchas em múltiplas áreas."
+                    },
+                    {
+                        title: "Frustração com tratamentos 😤",
+                        description: "A decepção repetida com produtos ineficazes leva ao sentimento de desamparo."
+                    }
+                ]
+            }
+        };
+
+        // Treatment recommendations based on diagnosis and time
+        const treatments = {
+            "face": {
+                "recent": "Kit Inicial (2 Frascos) com aplicação diária em movimentos circulares suaves, evitando a região dos olhos.",
+                "medium": "Kit Completo (3 Frascos) aplicando duas vezes ao dia, combinado com proteção solar FPS 50+.",
+                "long": "Kit Intensivo (4 Frascos) com rotina de aplicação em duas etapas: clareador pela manhã e regenerador à noite.",
+                "lifetime": "Kit Intensivo (4 Frascos) com aplicação em camadas, deixando agir por 10 minutos antes de massagear."
+            },
+            "intimate": {
+                "recent": "Kit Inicial (2 Frascos) com aplicação noturna em camada fina após o banho e pele completamente seca.",
+                "medium": "Kit Completo (3 Frascos) aplicando em pele seca, sempre após a higiene, evitando aplicar em áreas mucosas.",
+                "long": "Kit Intensivo (4 Frascos) de uso diário, preferindo aplicação noturna e deixando agir durante o sono.",
+                "lifetime": "Kit Intensivo (4 Frascos) com protocolo de aplicação em dias alternados nas primeiras duas semanas, depois diariamente."
+            },
+            "limbs": {
+                "recent": "Kit Inicial (2 Frascos) aplicando em movimentos ascendentes após hidratação leve da pele.",
+                "medium": "Kit Completo (3 Frascos) combinando com esfoliação suave 2x por semana para potencializar a absorção.",
+                "long": "Kit Intensivo (4 Frascos) com aplicação mais generosa em áreas ressecadas como joelhos e cotovelos.",
+                "lifetime": "Kit Intensivo (4 Frascos) alternando com esfoliação semanal e aplicando uma camada extra antes de dormir."
+            },
+            "multiple": {
+                "recent": "Kit Completo (3 Frascos) com aplicação específica para cada área, respeitando as particularidades de cada região.",
+                "medium": "Kit Completo (3 Frascos) adaptando a quantidade de produto para cada tipo de mancha, mais produto nas áreas resistentes.",
+                "long": "Kit Intensivo (4 Frascos) aplicando primeiro nas manchas mais antigas, com leve massagem para melhor penetração.",
+                "lifetime": "Kit Intensivo (4 Frascos) usando o sistema em camadas nas manchas mais resistentes e aplicação simples nas recentes."
+            }
+        };
+        
+        // Additional care recommendations
+        const additionalCare = {
+            "face": "Aplique protetor solar a cada 3 horas quando exposta ao sol. Evite maquiagem pesada durante o tratamento para não obstruir os poros.",
+            "intimate": "Use roupas íntimas de algodão durante o tratamento. Evite depilação agressiva que pode irritar a pele e comprometer os resultados.",
+            "limbs": "Mantenha a pele hidratada bebendo pelo menos 2L de água por dia. Use roupas com proteção UV em atividades ao ar livre.",
+            "multiple": "Implemente rotina de hidratação intensa em todas as áreas tratadas. Evite banhos muito quentes que podem ressecar a pele."
+        };
+
+        // Notification data
+        const notifications = [
+            {
+                title: "Compra Recente",
+                message: "Márcia de SP acabou de comprar o Kit 3 Frascos!",
+                time: "Agora"
+            },
+            {
+                title: "Kit Enviado",
+                message: "Kit 4 Frascos a caminho para Curitiba!",
+                time: "2 min atrás"
+            },
+            {
+                title: "Estoque Baixo",
+                message: "Restam 5 unidades do Kit 3 Frascos!",
+                time: "Agora"
+            },
+            {
+                title: "Cliente Satisfeita",
+                message: "Laura: 'Manchas 70% mais claras em 6 semanas!'",
+                time: "10 min atrás"
+            },
+            {
+                title: "Último Aviso",
+                message: "Desconto de 35% termina em breve!",
+                time: "Atualizado"
+            },
+            {
+                title: "Testemunho Real",
+                message: "Ana: 'Único produto que funcionou depois de 3 anos!'",
+                time: "5 min atrás"
+            },
+            {
+                title: "Depoimento",
+                message: "Paula: 'Finalmente consegui comprar com o desconto!'",
+                time: "Agora"
+            },
+            {
+                title: "Cliente Feliz",
+                message: "Camila: 'Da água para o vinho em 4 semanas!'",
+                time: "7 min atrás"
+            },
+            {
+                title: "Transformação",
+                message: "Regina: 'Recuperei minha autoestima com Amazole!'",
+                time: "3 min atrás"
+            },
+            {
+                title: "Exclusivo",
+                message: "Alunas aproveitando 35% OFF nos kits!",
+                time: "Agora"
+            },
+            {
+                title: "Atendimento VIP",
+                message: "Julia: 'Fernanda me deu ótimas dicas de uso!'",
+                time: "8 min atrás"
+            },
+            {
+                title: "Suporte excelente",
+                message: "Bruna: 'Atendente Fernanda esclareceu todas minhas dúvidas!'",
+                time: "4 min atrás"
+            },
+            {
+                title: "Feedback positivo",
+                message: "Ana: 'Fernanda foi super paciente na explicação!'",
+                time: "Agora"
+            }
+        ];
+        
+        // Recent purchase testimonials
+        const recentPurchases = [
+            {
+                name: "Maria",
+                location: "São Paulo, SP",
+                avatar: "M",
+                message: "Acabei de fazer o teste e aproveitei o desconto de 35% para comprar o kit de 3 frascos. Incrível como o diagnóstico foi preciso!",
+                time: "Agora mesmo"
+            },
+            {
+                name: "Carla",
+                location: "Rio de Janeiro, RJ",
+                avatar: "C",
+                message: "Finalmente encontrei algo que funciona! Fiz o quiz e comprei o kit intensivo. Obrigada pelo desconto especial!",
+                time: "2 minutos atrás"
+            },
+            {
+                name: "Beatriz",
+                location: "Belo Horizonte, MG",
+                avatar: "B",
+                message: "Depois de anos sofrendo com melasma, o diagnóstico do quiz me ajudou a escolher o tratamento certo. Já garantiu meu kit!",
+                time: "5 minutos atrás"
+            },
+            {
+                name: "Juliana",
+                location: "Curitiba, PR",
+                avatar: "J",
+                message: "Nunca pensei que um quiz online fosse tão preciso! Acabei de comprar meu kit com o desconto. Mal posso esperar para começar!",
+                time: "Agora"
+            },
+            {
+                name: "Renata",
+                location: "Brasília, DF",
+                avatar: "R",
+                message: "O diagnóstico foi exatamente o que eu precisava ouvir. Finalmente vou resolver minhas manchas! Comprei o kit completo com desconto.",
+                time: "3 minutos atrás"
+            },
+            {
+                name: "Paula",
+                location: "Salvador, BA",
+                avatar: "P",
+                message: "Estava esperando uma promoção há meses! O preço normal estava fora do meu orçamento, mas com 35% OFF consegui comprar o kit de 3 frascos!",
+                time: "4 minutos atrás"
+            },
+            {
+                name: "Amanda",
+                location: "Fortaleza, CE",
+                avatar: "A",
+                message: "Já tinha tentado DE TUDO para clarear minhas manchas, nada funcionou. Amazole foi o único que realmente fez diferença já na 2ª semana!",
+                time: "Agora mesmo"
+            },
+            {
+                name: "Daniela",
+                location: "Porto Alegre, RS",
+                avatar: "D",
+                message: "Estava na dúvida entre kits, mas o quiz me ajudou a escolher o melhor para meu caso. Aproveitei o desconto e já estou usando!",
+                time: "7 minutos atrás"
+            },
+            {
+                name: "Viviane",
+                location: "Recife, PE",
+                avatar: "V",
+                message: "Só comprei porque tinha desconto! Valor normal é caro para mim, mas com 35% OFF ficou acessível. Não vejo a hora de começar!",
+                time: "Agora"
+            },
+            {
+                name: "Fernanda",
+                location: "Manaus, AM",
+                avatar: "F",
+                message: "Depois de gastar uma fortuna em dermato e lasers sem resultado, Amazole resolveu meu melasma em 5 semanas! Melhor investimento!",
+                time: "12 minutos atrás"
+            },
+            {
+                name: "Luciana",
+                location: "Goiânia, GO",
+                avatar: "L",
+                message: "Já estava usando há 3 meses e REALMENTE funciona! Aproveitei a promoção para comprar outro kit e manter os resultados.",
+                time: "8 minutos atrás"
+            },
+            {
+                name: "Tatiana",
+                location: "Belém, PA",
+                avatar: "T",
+                message: "Preço normal sempre me impediu de comprar. Com o desconto do quiz finalmente pude adquirir! Estou muito ansiosa!",
+                time: "6 minutos atrás"
+            },
+            {
+                name: "Sandra",
+                location: "Florianópolis, SC",
+                avatar: "S",
+                message: "A atendente Fernanda foi super gentil e me explicou tudo sobre o produto. Comprei o kit de 3 frascos com desconto e já chegou!",
+                time: "9 minutos atrás"
+            },
+            {
+                name: "Márcia",
+                location: "Natal, RN",
+                avatar: "M",
+                message: "Amazole é o único que funcionou após tentar vários produtos! Fernanda me ajudou a escolher o kit ideal. Super recomendo!",
+                time: "2 minutos atrás"
+            },
+            {
+                name: "Regina",
+                location: "João Pessoa, PB",
+                avatar: "R",
+                message: "Fernanda foi maravilhosa tirando minhas dúvidas pelo WhatsApp! O produto é sensacional e o desconto foi essencial para eu comprar.",
+                time: "5 minutos atrás"
+            },
+            {
+                name: "Patrícia",
+                location: "Vitória, ES",
+                avatar: "P",
+                message: "Fernanda, muito obrigada pelas orientações! Nunca tinha usado algo que realmente funcionasse para minhas manchas antes do Amazole!",
+                time: "Agora mesmo"
+            }
+        ];
+
+        // Product recommendations based on responses
+        const recommendProducts = (timeId, impactId) => {
+            // Para manchas intensas, sempre recomende o kit de 4 frascos 
+            if (timeId === "long" || timeId === "lifetime" || impactId === "severe" || impactId === "extreme") {
+                // Manchas antigas ou impacto emocional significativo - recomendar 4 frascos
+                const product4 = document.getElementById('product-4');
+                if (product4) {
+                    document.querySelectorAll('.product-card').forEach(card => {
+                        card.classList.remove('selected');
+                    });
+                    product4.classList.add('selected');
+                }
+                return 4;
+            } else if ((timeId === "recent" || timeId === "medium") && (impactId === "mild" || impactId === "moderate")) {
+                // Manchas recentes com impacto leve - recomende 2 frascos
+                const product2 = document.getElementById('product-2');
+                if (product2) {
+                    document.querySelectorAll('.product-card').forEach(card => {
+                        card.classList.remove('selected');
+                    });
+                    product2.classList.add('selected');
+                }
+                return 2;
+            } else {
+                // Recomendação padrão - 3 frascos
+                const product3 = document.getElementById('product-3');
+                if (product3) {
+                    document.querySelectorAll('.product-card').forEach(card => {
+                        card.classList.remove('selected');
+                    });
+                    product3.classList.add('selected');
+                }
+                return 3;
+            }
+        };
+
+        // Quiz state
+        let currentQuestionIndex = 0;
+        const answers = {};
+        let selectedProductQty = 3; // Default selection
+        let notificationInterval;
+        let notificationIndex = 0;
+        let countdownInterval;
+        let secondsLeft = 600; // 10 minutes
+        let recentPurchaseIndex = 0;
+        let recentPurchaseInterval;
+
+        // Initialize the quiz
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get references to DOM elements
+            const welcomeScreen = document.getElementById('welcome-screen');
+            const quizContainer = document.getElementById('quiz-container');
+            const btnStart = document.getElementById('btn-start');
+            const totalSteps = document.getElementById('total-steps');
+            const whatsappButtonSelect = document.getElementById('whatsapp-button-select');
+            const notificationPopup = document.getElementById('notification-popup');
+            const notificationClose = document.getElementById('notification-close');
+            const discountPopup = document.getElementById('discount-popup');
+            const discountClose = document.getElementById('discount-close');
+            const discountBtn = document.getElementById('discount-btn');
+            const discountOtherOptions = document.getElementById('discount-other-options');
+            const copyCoupon = document.getElementById('copy-coupon');
+            const recentPurchasePopup = document.getElementById('recent-purchase-popup');
+            const recentPurchaseClose = document.getElementById('recent-purchase-close');
+            
+            // Set total questions
+            if (totalSteps) {
+                totalSteps.textContent = questions.length;
+            }
+            
+            // Show first recent purchase popup immediately
+            setTimeout(() => {
+                showRecentPurchase();
+                
+                // Start showing recent purchases every 25 seconds
+                recentPurchaseInterval = setInterval(() => {
+                    showRecentPurchase();
+                }, 25000);
+            }, 3000);
+            
+            // Recent purchase close button
+            if (recentPurchaseClose) {
+                recentPurchaseClose.addEventListener('click', function() {
+                    closeRecentPurchase();
+                });
+            }
+            
+            // Start button event listener
+            if (btnStart) {
+                btnStart.addEventListener('click', function() {
+                    if (welcomeScreen) welcomeScreen.style.display = 'none';
+                    if (quizContainer) quizContainer.style.display = 'block';
+                    renderQuestion(currentQuestionIndex);
+                    
+                    // Start notification system after 8 seconds
+                    setTimeout(() => {
+                        startNotifications();
+                    }, 8000);
+                });
+            }
+            
+            // WhatsApp button event listener
+            if (whatsappButtonSelect) {
+                whatsappButtonSelect.addEventListener('click', function() {
+                    // Get currently selected product
+                    const selectedProduct = document.querySelector('.product-card.selected');
+                    if (selectedProduct) {
+                        selectedProductQty = parseInt(selectedProduct.getAttribute('data-qty'));
+                    }
+                    sendWhatsAppMessage(selectedProductQty);
+                });
+            }
+            
+            // Product card selection
+            document.querySelectorAll('.product-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    // Remove selection from all cards
+                    document.querySelectorAll('.product-card').forEach(c => {
+                        c.classList.remove('selected');
+                    });
+                    
+                    // Add selection to clicked card
+                    this.classList.add('selected');
+                    
+                    // Update selected product quantity
+                    selectedProductQty = parseInt(this.getAttribute('data-qty'));
+                    
+                    // Show discount popup for 3 frascos
+                    if (selectedProductQty === 3) {
+                        showDiscountPopup();
+                    }
+                    
+                    // Redirect to WhatsApp after a short delay
+                    setTimeout(() => {
+                        sendWhatsAppMessage(selectedProductQty);
+                    }, 500);
+                });
+            });
+            
+            // Notification close button
+            if (notificationClose) {
+                notificationClose.addEventListener('click', function() {
+                    closeNotification();
+                });
+            }
+            
+            // Discount popup close button
+            if (discountClose) {
+                discountClose.addEventListener('click', function() {
+                    closeDiscountPopup();
+                });
+            }
+            
+            // Discount button
+            if (discountBtn) {
+                discountBtn.addEventListener('click', function() {
+                    copyCouponAndRedirect();
+                });
+            }
+            
+            // Discount other options button
+            if (discountOtherOptions) {
+                discountOtherOptions.addEventListener('click', function() {
+                    closeDiscountPopup();
+                    // Scroll to product grid
+                    const resultsContainer = document.getElementById('results-container');
+                    if (resultsContainer) {
+                        resultsContainer.style.display = 'block';
+                        const productsGrid = document.querySelector('.products-grid');
+                        if (productsGrid) {
+                            productsGrid.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    }
+                });
+            }
+            
+            // Copy coupon button
+            if (copyCoupon) {
+                copyCoupon.addEventListener('click', function() {
+                    copyToClipboard('AMAZ35');
+                    showCopiedMessage();
+                });
+            }
+        });
+
+        // Show recent purchase popup
+        function showRecentPurchase() {
+            const purchase = recentPurchases[recentPurchaseIndex];
+            const popup = document.getElementById('recent-purchase-popup');
+            const avatar = document.getElementById('recent-purchase-avatar');
+            const name = document.getElementById('recent-purchase-name');
+            const location = document.getElementById('recent-purchase-location');
+            const message = document.getElementById('recent-purchase-message');
+            const time = document.getElementById('recent-purchase-time');
+            
+            if (!popup || !avatar || !name || !location || !message || !time) return;
+            
+            // Update content
+            avatar.textContent = purchase.avatar;
+            name.textContent = purchase.name + " acabou de comprar";
+            location.textContent = purchase.location;
+            message.textContent = purchase.message;
+            time.textContent = purchase.time;
+            
+            // Show popup
+            popup.classList.remove('slide-out');
+            popup.style.display = 'block';
+            
+            // Hide popup after 8 seconds
+            setTimeout(() => {
+                closeRecentPurchase();
+            }, 8000);
+            
+            // Move to next purchase
+            recentPurchaseIndex = (recentPurchaseIndex + 1) % recentPurchases.length;
+        }
+
+        // Close recent purchase popup
+        function closeRecentPurchase() {
+            const popup = document.getElementById('recent-purchase-popup');
+            
+            if (!popup) return;
+            
+            popup.classList.add('slide-out');
+            
+            setTimeout(() => {
+                popup.style.display = 'none';
+            }, 500);
+        }
+
+        // Render current question
+        function renderQuestion(index) {
+            const question = questions[index];
+            const questionCard = document.getElementById('question-card');
+            
+            if (!questionCard) return;
+            
+            let html = `
+                <div class="question-title">
+                    <span class="question-number">${question.id}</span>
+                    ${question.title}
+                </div>
+                <div class="question-desc">${question.description}</div>
+                <div class="options-list">
+            `;
+            
+            // Add options
+            question.options.forEach(option => {
+                const isSelected = answers[index] === option.id ? 'selected' : '';
+                html += `
+                    <div class="option-item ${isSelected}" data-id="${option.id}">
+                        <div class="option-title">${option.title}</div>
+                        <div class="option-desc">${option.description}</div>
+                        <div class="option-impact">${option.impact}</div>
+                    </div>
+                `;
+            });
+            
+            html += `</div><div class="button-row">`;
+            
+            // Back button
+            if (index > 0) {
+                html += `<button class="btn btn-back" id="btn-back"><i class="fas fa-arrow-left"></i> Voltar</button>`;
+            } else {
+                html += `<div style="flex: 1;"></div>`;
+            }
+            
+            // Next button
+            const isDisabled = !answers[index] ? 'disabled' : '';
+            const nextText = index === questions.length - 1 ? 'Ver resultados <i class="fas fa-arrow-right"></i>' : 'Continuar <i class="fas fa-arrow-right"></i>';
+            html += `<button class="btn btn-next" id="btn-next" ${isDisabled}>${nextText}</button>`;
+            
+            html += `</div>`;
+            
+            // Update content and attach event listeners
+            questionCard.innerHTML = html;
+            
+            // Option click event
+            document.querySelectorAll('.option-item').forEach(option => {
+                option.addEventListener('click', function() {
+                    selectOption(this);
+                });
+            });
+            
+            // Back button event
+            const backBtn = document.getElementById('btn-back');
+            if (backBtn) {
+                backBtn.addEventListener('click', previousQuestion);
+            }
+            
+            // Next button event
+            const nextBtn = document.getElementById('btn-next');
+            if (nextBtn) {
+                nextBtn.addEventListener('click', function() {
+                    if (currentQuestionIndex === questions.length - 1) {
+                        showResults();
+                    } else {
+                        nextQuestion();
+                    }
+                });
+            }
+            
+            // Update progress
+            updateProgress();
+        }
+
+        // Select an option
+        function selectOption(option) {
+            // Remove previous selection
+            document.querySelectorAll('.option-item').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // Add selection
+            option.classList.add('selected');
+            
+            // Store answer
+            answers[currentQuestionIndex] = option.getAttribute('data-id');
+            
+            // Enable next button
+            const nextBtn = document.getElementById('btn-next');
+            if (nextBtn) {
+                nextBtn.removeAttribute('disabled');
+            }
+            
+            // Auto advance after a short delay
+            setTimeout(function() {
+                if (nextBtn && !nextBtn.disabled) {
+                    nextBtn.click();
+                }
+            }, 500); // Reduced delay for faster quiz
+        }
+
+        // Go to next question
+        function nextQuestion() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                renderQuestion(currentQuestionIndex);
+            }
+        }
+
+        // Go to previous question
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                renderQuestion(currentQuestionIndex);
+            }
+        }
+
+        // Update progress bar
+        function updateProgress() {
+            const progressFill = document.getElementById('progress-fill');
+            const progressPercent = document.getElementById('progress-percent');
+            const currentStep = document.getElementById('current-step');
+            
+            if (!progressFill || !progressPercent || !currentStep) return;
+            
+            const percent = Math.round((currentQuestionIndex + 1) / questions.length * 100);
+            progressFill.style.width = `${percent}%`;
+            progressPercent.textContent = `${percent}%`;
+            currentStep.textContent = currentQuestionIndex + 1;
+        }
+
+        // Show loading and then results
+        function showResults() {
+            // Get elements
+            const loadingScreen = document.getElementById('loading-screen');
+            
+            if (!loadingScreen) {
+                displayResults();
+                return;
+            }
+            
+            // Show loading screen
+            loadingScreen.classList.add('show');
+            
+            // After 1.5 seconds, show results (faster load time)
+            setTimeout(function() {
+                loadingScreen.classList.remove('show');
+                displayResults();
+                
+                // Show discount popup after results are displayed
+                setTimeout(function() {
+                    showDiscountPopup();
+                }, 1500);
+            }, 1500);
+        }
+
+        // Display personalized results
+        function displayResults() {
+            // Get elements
+            const quizContainer = document.getElementById('quiz-container');
+            const resultsContainer = document.getElementById('results-container');
+            const diagnosisTitle = document.getElementById('diagnosis-title');
+            const problemList = document.getElementById('problem-list');
+            
+            if (!quizContainer || !resultsContainer) return;
+            
+            // Hide quiz container
+            quizContainer.style.display = 'none';
+            
+            // Get diagnosis based on first answer (area of concern)
+            const areaOfConcern = answers[0] || "face"; // Default to face if no answer
+            const diagnosis = diagnoses[areaOfConcern];
+            
+            // Update diagnosis title if it exists
+            if (diagnosisTitle && diagnosis) {
+                diagnosisTitle.textContent = diagnosis.title;
+            }
+            
+            // Update problem list if it exists
+            if (problemList && diagnosis) {
+                let problemsHTML = '';
+                diagnosis.problems.forEach(problem => {
+                    problemsHTML += `
+                        <div class="problem-item">
+                            <div class="problem-icon"><i class="fas fa-exclamation"></i></div>
+                            <div>
+                                <div class="problem-title">${problem.title}</div>
+                                <div class="problem-desc">${problem.description}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+                problemList.innerHTML = problemsHTML;
+            }
+            
+            // Recommend product based on responses if we have answers
+            if (answers[1] && answers[2]) {
+                selectedProductQty = recommendProducts(answers[1], answers[2]);
+            }
+            
+            // Show results container
+            resultsContainer.style.display = 'block';
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Start notification system
+        function startNotifications() {
+            // Show first notification immediately
+            showNotification();
+            
+            // Set interval to show notifications every 30 seconds (more frequent)
+            notificationInterval = setInterval(() => {
+                showNotification();
+            }, 30000);
+        }
+
+        // Show notification
+        function showNotification() {
+            const notification = notifications[notificationIndex];
+            const notificationPopup = document.getElementById('notification-popup');
+            const notificationTitle = document.getElementById('notification-title');
+            const notificationMessage = document.getElementById('notification-message');
+            const notificationTime = document.getElementById('notification-time');
+            
+            if (!notificationPopup || !notificationTitle || !notificationMessage || !notificationTime) return;
+            
+            // Update notification content
+            notificationTitle.textContent = notification.title;
+            notificationMessage.textContent = notification.message;
+            notificationTime.textContent = notification.time;
+            
+            // Show notification
+            notificationPopup.classList.remove('slide-out');
+            notificationPopup.style.display = 'block';
+            
+            // Hide notification after 4 seconds (slightly faster)
+            setTimeout(() => {
+                closeNotification();
+            }, 4000);
+            
+            // Increment notification index
+            notificationIndex = (notificationIndex + 1) % notifications.length;
+        }
+
+        // Close notification
+        function closeNotification() {
+            const notificationPopup = document.getElementById('notification-popup');
+            
+            if (!notificationPopup) return;
+            
+            notificationPopup.classList.add('slide-out');
+            
+            setTimeout(() => {
+                notificationPopup.style.display = 'none';
+            }, 400);
+        }
+
+        // Show discount popup
+        function showDiscountPopup() {
+            const discountPopup = document.getElementById('discount-popup');
+            
+            if (!discountPopup) return;
+            
+            discountPopup.classList.add('show');
+            
+            // Start countdown
+            startCountdown();
+        }
+
+        // Close discount popup
+        function closeDiscountPopup() {
+            const discountPopup = document.getElementById('discount-popup');
+            
+            if (!discountPopup) return;
+            
+            discountPopup.classList.remove('show');
+            
+            // Clear countdown interval
+            if (countdownInterval) {
+                clearInterval(countdownInterval);
+            }
+        }
+
+        // Start countdown
+        function startCountdown() {
+            // Reset seconds left
+            secondsLeft = 600;
+            
+            // Clear any existing interval
+            if (countdownInterval) {
+                clearInterval(countdownInterval);
+            }
+            
+            // Update countdown display immediately
+            updateCountdown();
+            
+            // Set interval to update countdown every second
+            countdownInterval = setInterval(() => {
+                secondsLeft--;
+                
+                if (secondsLeft <= 0) {
+                    clearInterval(countdownInterval);
+                    closeDiscountPopup();
+                } else {
+                    updateCountdown();
+                }
+            }, 1000);
+        }
+
+        // Update countdown display
+        function updateCountdown() {
+            const countdownElement = document.getElementById('discount-countdown');
+            
+            if (!countdownElement) return;
+            
+            const minutes = Math.floor(secondsLeft / 60);
+            const seconds = secondsLeft % 60;
+            
+            countdownElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        // Copy text to clipboard
+        function copyToClipboard(text) {
+            // Create temporary element
+            const el = document.createElement('textarea');
+            el.value = text;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+        }
+
+        // Show copied message
+        function showCopiedMessage() {
+            const copiedMessage = document.getElementById('copied-message');
+            
+            if (!copiedMessage) return;
+            
+            copiedMessage.classList.add('show');
+            
+            setTimeout(() => {
+                copiedMessage.classList.remove('show');
+            }, 1500);
+        }
+
+        // Copy coupon and redirect to WhatsApp
+        function copyCouponAndRedirect() {
+            copyToClipboard('AMAZ35');
+            showCopiedMessage();
+            
+            // Close popup and redirect after a short delay
+            setTimeout(() => {
+                closeDiscountPopup();
+                sendWhatsAppMessage(3); // Force kit 3 when using coupon
+            }, 1000);
+        }
+
+        // Send WhatsApp message with personalized diagnosis based on quiz answers
+        function sendWhatsAppMessage(productQty) {
+            // Impacto emocional (pergunta 3) - usando exatamente a terminologia mostrada na imagem
+            let diagnosisText = "";
+            
+            if (answers[2] === "mild") {
+                diagnosisText += "😕 Leve incômodo\n";
+                diagnosisText += "Percebo, mas não afeta muito\n";
+                diagnosisText += "Seria mais confiante sem elas\n";
+            } else if (answers[2] === "moderate") {
+                diagnosisText += "😞 Desconforto moderado\n";
+                diagnosisText += "Preciso esconder com maquiagem\n";
+                diagnosisText += "Gasta tempo e dinheiro tentando disfarçar\n";
+            } else if (answers[2] === "severe") {
+                diagnosisText += "😢 Impacto significativo\n";
+                diagnosisText += "Evito situações sociais\n";
+                diagnosisText += "Está perdendo experiências por vergonha\n";
+            } else if (answers[2] === "extreme") {
+                diagnosisText += "😭 Impacto extremo\n";
+                diagnosisText += "Sinto vergonha profunda\n";
+                diagnosisText += "Afeta sua saúde mental e relacionamentos\n";
+            } else {
+                diagnosisText += "😞 Desconforto moderado\n";
+                diagnosisText += "Preciso esconder com maquiagem\n";
+            }
+            
+            // Inicie a mensagem com saudação
+            let message = `Olá Fernanda, quero aproveitar essa SUPER PROMOÇÃO! 🔥🔥🔥\n\n`;
+            
+            message += `*🌟 AMAZOLE+: SOLUÇÃO DEFINITIVA PARA MANCHAS 🌟*\n\n`;
+            
+            // Diagnóstico personalizado baseado nas respostas
+            message += `*MEU DIAGNÓSTICO:*\n${diagnosisText}\n`;
+            
+            // Informações do produto
+            let productName, productPrice, oldPrice, savings;
+            switch(productQty) {
+                case 2:
+                    productName = "Kit Inicial (2 Frascos)";
+                    oldPrice = "197,00";
+                    productPrice = "167,00";
+                    savings = "30,00";
+                    break;
+                case 3:
+                    productName = "Kit Completo (3 Frascos)";
+                    oldPrice = "297,00";
+                    productPrice = "197,00";
+                    savings = "100,00";
+                    break;
+                case 4:
+                    productName = "Kit Intensivo (4 Frascos)";
+                    oldPrice = "357,00";
+                    productPrice = "247,00";
+                    savings = "110,00";
+                    break;
+                default:
+                    productName = "Kit Intensivo (4 Frascos)";
+                    oldPrice = "357,00";
+                    productPrice = "247,00";
+                    savings = "110,00";
+            }
+            
+            message += `*PRODUTO:* ${productName} ✨\n`;
+            message += `*DE:* ~R$ ${oldPrice}~ 💸\n`;
+            message += `*POR:* R$ ${productPrice} 💰\n`;
+            message += `*ECONOMIA:* R$ ${savings} 🤑\n`;
+            message += `*CUPOM:* AMAZ35 🎁\n\n`;
+            
+            message += `✅ Confirmando para garantir minha oferta! Frete grátis! ⏰`;
+            
+            // Encode message for URL - otimizado para celular (mensagem mais curta)
+            const encodedMessage = encodeURIComponent(message);
+            
+            // Create WhatsApp URL
+            const whatsappNumber = "5511999811209";
+            const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+            
+            // Open WhatsApp in a new tab
+            window.open(whatsappURL, '_blank');
+        }
+    </script>
+</body>
+</html>
